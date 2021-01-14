@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             let initBillNew = initBill.prefix(initBill.count - 1)
             initBill = String(initBillNew)
         }
-        billAmount.text = "$" + initBill
+        billAmount.text = currencyFormatting() + initBill
         calcTips()
         
     
@@ -136,8 +136,9 @@ class ViewController: UIViewController {
         
         let total = newBill + finalTip
         
-        tipCostLabel.text = String(format: (currencyFormatting() + "%.2f"), finalTip)
-        totalLabel.text = String(format: (currencyFormatting() + "%.2f"), total)
+       
+        tipCostLabel.text = test(num: finalTip)
+        totalLabel.text = test(num: total)
         
         
     }
@@ -151,27 +152,26 @@ class ViewController: UIViewController {
     }
     
     
+    func thousandsFormatting() -> String {
+        let thousandsFormatter = NumberFormatter()
+        thousandsFormatter.numberStyle = .currency
+        return String((thousandsFormatter.string(from: NSNumber.init(value: 1.3))!).suffix(3).prefix(1))
+        
+    }
     
     
+    func test(num: Double) -> String{
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .currency
+        let formattedTipAmount = formatter.string(from: num as NSNumber)
+        return formattedTipAmount!
+        
+        
+    }
     
-//    @IBAction func calculateTip(_ sender: Any) {
-//        // Get initial bill amount and calculate tips
-//        let bill = Double(billAmountTextField.text!) ?? 0
-//        let tipPercentages = [0.15, 0.18, 0.2]
-//
-//        // Calculate tip and total
-//        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-//        let total = bill + tip
-//
-//        // Update the tip and total labels
-//        tipPercentageLabel.text = String(format: "$%.2f", tip)
-//        totalLabel.text = String(format: "$%.2f", total)
-//
-//    }
-    
-    
-    
-    
+
+
     
 
 }
