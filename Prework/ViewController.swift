@@ -19,6 +19,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        view.backgroundColor = Theme.background
+        billAmount.text = currencyFormatting() + "0"
+        tipCostLabel.text = currencyFormatting() + "0"
+        totalLabel.text = currencyFormatting() + "0"
+        
     }
     @IBAction func onTap(_ sender: Any) {
 
@@ -34,7 +39,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func delButton(_ sender: UIButton) {
-        print(initBill.count)
         if initBill.count == 1{
             initBill = "0"
         }
@@ -48,10 +52,9 @@ class ViewController: UIViewController {
     
     }
     @IBAction func decButton(_ sender: UIButton) {
-        print(initBill)
         if !initBill.contains("."){
             initBill.append(".")
-            billAmount.text = "$" + initBill
+            billAmount.text = currencyFormatting() + initBill
         }
     }
     
@@ -103,17 +106,17 @@ class ViewController: UIViewController {
             let initBillFloat = (Float(initBill)! * 100)
             let initBillInt = Double(Int(initBillFloat)) / 100
             initBill = String(initBillInt)
-            billAmount.text = "$" + initBill
+            billAmount.text = currencyFormatting() + initBill
         }
         else{
             
             if Double(initBill) != Double("0"){
                 initBill.append(inp)
-                billAmount.text = "$" + initBill
+                billAmount.text = currencyFormatting() + initBill
             }
             else{
                 initBill = inp
-                billAmount.text = "$" + initBill
+                billAmount.text = currencyFormatting() + initBill
             }
             
         }
@@ -133,13 +136,19 @@ class ViewController: UIViewController {
         
         let total = newBill + finalTip
         
-        tipCostLabel.text = String(format: "$%.2f", finalTip)
-        totalLabel.text = String(format: "$%.2f", total)
+        tipCostLabel.text = String(format: (currencyFormatting() + "%.2f"), finalTip)
+        totalLabel.text = String(format: (currencyFormatting() + "%.2f"), total)
         
         
     }
     
     
+    func currencyFormatting() -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        return String((currencyFormatter.string(from: NSNumber.init(value: 0))!).prefix(1))
+        
+    }
     
     
     
