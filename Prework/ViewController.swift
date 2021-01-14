@@ -137,8 +137,8 @@ class ViewController: UIViewController {
         let total = newBill + finalTip
         
        
-        tipCostLabel.text = test(num: finalTip)
-        totalLabel.text = test(num: total)
+        tipCostLabel.text = formator(num: finalTip)
+        totalLabel.text = formator(num: total)
         
         
     }
@@ -152,15 +152,7 @@ class ViewController: UIViewController {
     }
     
     
-    func thousandsFormatting() -> String {
-        let thousandsFormatter = NumberFormatter()
-        thousandsFormatter.numberStyle = .currency
-        return String((thousandsFormatter.string(from: NSNumber.init(value: 1.3))!).suffix(3).prefix(1))
-        
-    }
-    
-    
-    func test(num: Double) -> String{
+    func formator(num: Double) -> String{
         let formatter = NumberFormatter()
         formatter.locale = Locale.current
         formatter.numberStyle = .currency
